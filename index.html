@@ -145,7 +145,8 @@
 
 <script>
     // --- CONFIGURATION ---
-    const APP_URL = "https://script.google.com/macros/s/AKfycbx_MevTiukqINxZv39Jh2uzFbPGkGt0j75eKuEHwBvta5zAjoujrcB9U3c89CP2A1fv1A/exec"; 
+    // PASTE YOUR NEW WEB APP URL HERE
+    const APP_URL = "https://script.google.com/macros/s/AKfycby4MTNHU_2rfGk0yxmIzDe1yFEsQ-cP13UXq6xtwpfziTzI3BTRG1N9oPGm0oU3kdr53g/exec"; 
 
     const STAGES = [
         "Receiving", "Programming", "Pre-Vib 1 Grp A", "Vibration 1", 
@@ -177,7 +178,10 @@
 
         if(!batch || !sn) return showMsg("Missing Batch or Serial Number", "error");
 
-        let currentData = db[sn];
+        // COMPOSITE KEY: Allows same SN in different Batches
+        const unitKey = batch + "_" + sn;
+        
+        let currentData = db[unitKey];
         let lastIdx = currentData ? STAGES.indexOf(currentData.stage) : -1;
 
         if (!isEdit) {
@@ -197,12 +201,11 @@
             time: new Date().toLocaleString() 
         };
 
-        // Update local state immediately for responsiveness
-        db[sn] = payload;
+        db[unitKey] = payload;
         renderUI();
 
         if(APP_URL && APP_URL !== "") {
-            showMsg("Syncing with Cloud...", "success");
+            showMsg("Syncing...", "success");
             try {
                 await fetch(APP_URL, { 
                     method: 'POST', 
@@ -211,32 +214,31 @@
                 });
                 setTimeout(refreshData, 1500);
             } catch (e) {
-                showMsg("Cloud Sync Failed - Saved Locally", "error");
+                showMsg("Sync Error", "error");
             }
         } else {
             localStorage.setItem('office_trace_db', JSON.stringify(db));
-            showMsg("Saved Locally", "success");
         }
 
         document.getElementById('snInput').value = "";
         document.getElementById('snInput').focus();
     }
 
-    async function deleteUnit(sn) {
-        if (!confirm(`Permanently delete Serial Number ${sn}?`)) return;
+    async function deleteUnit(unitKey) {
+        const unit = db[unitKey];
+        if (!confirm(`Delete SN ${unit.sn} from Batch ${unit.batch}?`)) return;
         
-        delete db[sn];
+        const payload = { sn: unit.sn, batch: unit.batch, action: "DELETE" };
+        delete db[unitKey];
         renderUI();
 
         if(APP_URL && APP_URL !== "") {
             await fetch(APP_URL, { 
                 method: 'POST', 
                 mode: 'no-cors', 
-                body: JSON.stringify({ sn: sn, action: "DELETE" }) 
+                body: JSON.stringify(payload) 
             });
             setTimeout(refreshData, 1000);
-        } else {
-            localStorage.setItem('office_trace_db', JSON.stringify(db));
         }
     }
 
@@ -246,21 +248,17 @@
             const res = await fetch(APP_URL);
             const cloudData = await res.json();
             const newDb = {};
-            // Start at 1 to skip header row
             for (let i = 1; i < cloudData.length; i++) {
                 const row = cloudData[i];
-                newDb[row[1]] = { 
-                    batch: row[0], 
-                    sn: row[1], // FIXED: Ensure sn property is mapped
-                    stage: row[2], 
-                    history: row[3], 
-                    status: row[4], 
-                    time: row[5] 
+                const key = row[0] + "_" + row[1]; // Batch + SN
+                newDb[key] = { 
+                    batch: row[0], sn: row[1], stage: row[2], 
+                    history: row[3], status: row[4], time: row[5] 
                 };
             }
             db = newDb;
             renderUI();
-        } catch (e) { console.error("Cloud Refresh Failed"); }
+        } catch (e) { console.error("Refresh Failed"); }
     }
 
     function renderUI() {
@@ -278,7 +276,8 @@
         let stageCounts = new Array(STAGES.length).fill(0);
         let currentBatches = new Set();
 
-        Object.values(db).reverse().forEach(unit => {
+        Object.keys(db).reverse().forEach(key => {
+            const unit = db[key];
             currentBatches.add(unit.batch);
             batchCounts[unit.batch] = (batchCounts[unit.batch] || 0) + 1;
 
@@ -290,23 +289,21 @@
                 
                 let row = `<tr>
                     <td><b>${unit.batch}</b></td>
-                    <td>${unit.sn || '---'}</td>
+                    <td>${unit.sn}</td>
                     <td><span style="color:var(--blue); font-weight:700;">${unit.stage}</span></td>
                     <td><small style="color:var(--text-muted)">${unit.history}</small></td>
                     <td><span class="status-badge ${(unit.status || 'testing').toLowerCase()}">${unit.status}</span></td>`;
                 
-                if (isAdmin) row += `<td><button class="btn-delete" onclick="deleteUnit('${unit.sn}')">Delete</button></td>`;
+                if (isAdmin) row += `<td><button class="btn-delete" onclick="deleteUnit('${key}')">Delete</button></td>`;
                 row += `</tr>`;
                 logBody.innerHTML += row;
             }
         });
 
-        // Summary Table
         Object.keys(batchCounts).sort().forEach(b => {
             summaryBody.innerHTML += `<tr><td>${b}</td><td>${batchCounts[b]} Units</td><td><button onclick="focusBatch('${b}')" style="font-size:9px; padding:2px 8px; width:auto; margin:0;">View</button></td></tr>`;
         });
 
-        // Dropdowns
         const currentF = viewFilter.value;
         const currentB = batchDropdown.value;
         viewFilter.innerHTML = '<option value="ALL">All Batches</option>';
@@ -317,10 +314,9 @@
         });
         viewFilter.value = currentF; batchDropdown.value = currentB;
 
-        // Analytics
         const stepContainer = document.getElementById('stepAnalytics');
         if (selectedBatch === "ALL") {
-            stepContainer.innerHTML = "<p style='color:#888; font-size:11px; grid-column: 1/-1;'>Select a specific batch to view step-by-step metrics.</p>";
+            stepContainer.innerHTML = "<p style='color:#888; font-size:11px; grid-column: 1/-1;'>Select a batch to view steps.</p>";
         } else {
             stepContainer.innerHTML = "";
             STAGES.forEach((s, i) => {
@@ -366,12 +362,9 @@
         const blob = new Blob([csv], { type: 'text/csv' });
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `Audit_Report_${new Date().toISOString().split('T')[0]}.csv`;
+        a.download = `Report_${new Date().toISOString().split('T')[0]}.csv`;
         a.click();
     }
 </script>
 </body>
 </html>
-
-
-
