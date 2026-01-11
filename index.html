@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ANR Quality Hub | Professional Traceability</title>
+    <title>Quality Assurance | Advanced Traceability Suite</title>
     <style>
         :root { 
             --navy: #0f172a; --blue: #2563eb; --emerald: #10b981; 
@@ -16,47 +16,41 @@
         header { background: var(--navy); color: white; padding: 12px 20px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
         .btn-export { background: var(--emerald); color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 12px; font-weight: bold; }
         
+        /* Dashboard Analytics */
         .dashboard-grid { display: grid; grid-template-columns: 450px 1fr; gap: 15px; margin-bottom: 15px; }
         .dashboard-card { background: white; padding: 15px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
         
         .step-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 8px; margin-top: 10px; }
         .step-box { background: var(--slate); padding: 10px; border-radius: 6px; text-align: center; border-top: 3px solid #dee2e6; transition: 0.3s; }
         .step-box.active { border-top-color: var(--blue); background: #eff6ff; transform: translateY(-2px); }
-        .step-box h5 { margin: 0; font-size: 9px; color: var(--text-muted); text-transform: uppercase; }
+        .step-box h5 { margin: 0; font-size: 10px; color: var(--text-muted); text-transform: uppercase; }
         .step-box p { margin: 5px 0 0; font-size: 20px; font-weight: 800; color: var(--navy); }
-        .step-label { font-size: 7px; color: var(--text-muted); font-weight: bold; margin-top: 2px; line-height: 1; }
+        .step-label { font-size: 8px; color: var(--text-muted); font-weight: bold; margin-top: 2px; }
 
-        .workspace { display: grid; grid-template-columns: 360px 1fr; gap: 15px; align-items: start; }
+        .workspace { display: grid; grid-template-columns: 340px 1fr; gap: 15px; align-items: start; }
         .input-panel { background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         
-        label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 11px; color: var(--text-muted); }
-        input, select, button { width: 100%; padding: 10px; margin-bottom: 12px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; box-sizing: border-box; }
-        
-        /* Radio Button Styling */
-        .radio-group { display: flex; gap: 6px; margin-bottom: 12px; flex-wrap: wrap; }
-        .radio-item { flex: 1; min-width: 70px; }
-        .radio-item input { display: none; }
-        .radio-item label { 
-            display: block; background: var(--slate); padding: 8px; border-radius: 6px; 
-            text-align: center; border: 1px solid var(--border); cursor: pointer; 
-            font-size: 11px; font-weight: 600; transition: 0.2s;
-        }
-        .radio-item input:checked + label { background: var(--blue); color: white; border-color: var(--blue); }
-
-        .btn-log { background: var(--blue); color: white; border: none; font-weight: 700; cursor: pointer; transition: 0.2s; padding: 14px; }
+        label { display: block; font-weight: 700; margin-bottom: 6px; font-size: 12px; color: var(--text-muted); }
+        input, select, button { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid var(--border); border-radius: 6px; font-size: 14px; box-sizing: border-box; }
+        input:focus, select:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1); }
+        .btn-log { background: var(--blue); color: white; border: none; font-weight: 700; cursor: pointer; transition: 0.2s; }
         .btn-log:hover { background: #1d4ed8; }
 
+        /* Tables */
         .table-panel { background: white; padding: 20px; border-radius: 8px; border: 1px solid var(--border); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
         .table-scroll { max-height: 500px; overflow-y: auto; border: 1px solid var(--slate); border-radius: 6px; }
-        table { width: 100%; border-collapse: collapse; font-size: 12px; }
-        th { background: #f8fafc; padding: 10px; text-align: left; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 10; font-size: 10px; text-transform: uppercase; color: var(--text-muted); }
-        td { padding: 10px; border-bottom: 1px solid var(--slate); }
+        table { width: 100%; border-collapse: collapse; font-size: 13px; }
+        th { background: #f8fafc; padding: 12px; text-align: left; border-bottom: 2px solid var(--border); position: sticky; top: 0; z-index: 10; font-size: 11px; text-transform: uppercase; color: var(--text-muted); }
+        td { padding: 12px; border-bottom: 1px solid var(--slate); }
         
-        .admin-box { background: #fff1f2; border: 1px dashed var(--rose); padding: 10px; border-radius: 6px; margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center; font-size: 10px; font-weight: 800; color: var(--rose); }
-        .btn-delete { background: var(--rose); color: white; border: none; padding: 4px 8px; border-radius: 4px; cursor: pointer; font-size: 9px; font-weight: bold; }
-        .status-badge { padding: 3px 6px; border-radius: 10px; font-size: 9px; font-weight: 700; text-transform: uppercase; }
+        .admin-box { background: #fff1f2; border: 1px dashed var(--rose); padding: 12px; border-radius: 6px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 800; color: var(--rose); }
+        .btn-delete { background: var(--rose); color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer; font-size: 10px; font-weight: bold; }
+        .status-badge { padding: 4px 8px; border-radius: 12px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
+        .done { background: #dcfce7; color: #166534; }
+        .testing { background: #fef9c3; color: #854d0e; }
 
-        #feedback { display: none; padding: 8px; border-radius: 4px; text-align: center; font-weight: bold; font-size: 12px; margin-bottom: 12px; }
+        /* Feedback UI */
+        #feedback { display: none; padding: 10px; border-radius: 6px; text-align: center; font-weight: bold; font-size: 13px; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -64,18 +58,18 @@
 <div class="container">
     <header>
         <div style="display: flex; align-items: center; gap: 15px;">
-            <h2 style="margin:0; font-size: 18px; letter-spacing: -0.5px;">ANR QUALITY HUB</h2>
-            <div id="syncStatus" style="font-size: 10px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px;">Mode: Connecting...</div>
+            <h2 style="margin:0; font-size: 20px; letter-spacing: -0.5px;">QA Operational Command</h2>
+            <div id="syncStatus" style="font-size: 10px; background: rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.2);">Mode: Ready</div>
         </div>
-        <button class="btn-export" onclick="downloadCSV()">Export Report</button>
+        <button class="btn-export" onclick="downloadCSV()">⤓ Export Master Report</button>
     </header>
 
     <div class="dashboard-grid">
         <div class="dashboard-card">
-            <h4 style="margin:0 0 10px 0; font-size: 12px; color: var(--navy);">Cumulative Batch Status</h4>
+            <h4 style="margin:0 0 10px 0; font-size: 14px; color: var(--navy);">Active Batch Summary</h4>
             <div style="max-height: 140px; overflow-y: auto;">
                 <table>
-                    <thead><tr><th>Batch ID</th><th>Count</th><th>View</th></tr></thead>
+                    <thead><tr><th>Batch ID</th><th>Unit Count</th><th>Quick View</th></tr></thead>
                     <tbody id="globalSummaryTable"></tbody>
                 </table>
             </div>
@@ -83,8 +77,8 @@
 
         <div class="dashboard-card">
             <div style="display:flex; justify-content:space-between; align-items:center;">
-                <h4 style="margin:0; font-size: 12px; color: var(--navy);">Pipeline Distribution</h4>
-                <select id="viewFilter" style="width:180px; margin:0; padding:4px; font-size: 11px;" onchange="renderUI()">
+                <h4 style="margin:0; font-size: 14px; color: var(--navy);">Pipeline Distribution</h4>
+                <select id="viewFilter" style="width:180px; margin:0; padding:6px; font-size: 12px;" onchange="renderUI()">
                     <option value="ALL">All Batches</option>
                 </select>
             </div>
@@ -95,41 +89,34 @@
     <div class="workspace">
         <div class="input-panel">
             <div class="admin-box">
-                <span>🛠 ADMIN OVERRIDE</span>
-                <input type="checkbox" id="editMode" onchange="renderUI()" style="width:16px; height:16px; cursor:pointer;">
+                <span>🛠 ADMIN OVERRIDE / DELETE</span>
+                <input type="checkbox" id="editMode" onchange="renderUI()" style="width:18px; height:18px; margin:0; cursor:pointer;">
             </div>
 
             <div id="feedback"></div>
 
-            <label>BATCH NAME</label>
-            <input type="text" id="batchInput" placeholder="Enter Batch ID..." list="batchData">
-            <datalist id="batchData"></datalist>
+            <label>BATCH ASSIGNMENT</label>
+            <select id="batchDropdown" onchange="syncBatchInput()">
+                <option value="">-- Select Existing Batch --</option>
+            </select>
+            <input type="text" id="batchInput" placeholder="...or type New Batch Name" style="margin-top:5px;">
 
             <label>SERIAL NUMBER</label>
-            <input type="text" id="snInput" placeholder="Scan Head Gear SN..." autofocus>
-
-            <label>HEAD GEAR SIZE</label>
-            <div class="radio-group">
-                <div class="radio-item"><input type="radio" name="size" id="s2mt" value="2MT" checked><label for="s2mt">2MT</label></div>
-                <div class="radio-item"><input type="radio" name="size" id="s3mt" value="3MT"><label for="s3mt">3MT</label></div>
-                <div class="radio-item"><input type="radio" name="size" id="s4mt" value="4MT"><label for="s4mt">4MT</label></div>
-                <div class="radio-item"><input type="radio" name="size" id="s4qrm" value="4MT QRM"><label for="s4qrm">4MT QRM</label></div>
-            </div>
-
-            <label>BOOT SIZE</label>
-            <div class="radio-group">
-                <div class="radio-item"><input type="radio" name="boot" id="b35" value="35mm" checked><label for="b35">35mm</label></div>
-                <div class="radio-item"><input type="radio" name="boot" id="b68" value="68mm"><label for="b68">68mm</label></div>
-            </div>
+            <input type="text" id="snInput" placeholder="Ready to Scan SN..." autofocus>
 
             <label>PROCESS STAGE</label>
             <select id="stageSelect">
                 <option value="0">01. Receiving</option>
-                <option value="1">02. Pre-Thermal Group A</option>
-                <option value="2">03. 24h Thermal Cycling</option>
-                <option value="3">04. Post-Thermal Group A</option>
-                <option value="4">05. ATP Test</option>
-                <option value="5">06. Engineering Offer</option>
+                <option value="1">02. Programming</option>
+                <option value="2">03. Pre-Vibration 1 Group A</option>
+                <option value="3">04. Vibration 1 Test</option>
+                <option value="4">05. Post-Vibration 1 Group A</option>
+                <option value="5">06. 24h Thermal Cycling</option>
+                <option value="6">07. Post-Thermal Grp A</option>
+                <option value="7">08. Vibration 2 Test</option>
+                <option value="8">09. Post-Vibration 2 Group A</option>
+                <option value="9">10. ATP Test</option>
+                <option value="10">11. Offer to Engineering</option>
             </select>
 
             <button class="btn-log" id="submitBtn" onclick="processUnit()">LOG TRANSACTION</button>
@@ -137,18 +124,17 @@
 
         <div class="table-panel">
             <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 10px;">
-                <h4 style="margin:0; font-size: 13px;">Production Log</h4>
-                <input type="text" id="searchBar" onkeyup="filterTable()" placeholder="Quick Search..." style="width:200px; margin:0; padding:6px;">
+                <h4 style="margin:0; font-size: 15px;">Transaction Log</h4>
+                <input type="text" id="searchBar" onkeyup="filterTable()" placeholder="Quick Search Serial Number..." style="width:250px; margin:0; padding:8px;">
             </div>
             <div class="table-scroll">
                 <table>
                     <thead>
                         <tr>
                             <th>Batch</th>
-                            <th>Serial No</th>
-                            <th>Gear Size</th>
-                            <th>Boot Size</th>
-                            <th>Stage</th>
+                            <th>Serial Number</th>
+                            <th>Current Stage</th>
+                            <th>History Trail</th>
                             <th>Status</th>
                             <th id="adminHeader" style="display:none;">Admin</th>
                         </tr>
@@ -161,63 +147,80 @@
 </div>
 
 <script>
-    // --- REPLACE THIS WITH YOUR WEB APP URL ---
-    const APP_URL = "https://script.google.com/macros/s/AKfycbxdedMVgLiA87dz-TOQibeVFghgXMxfowrlG3GcpZq7kD9EKyaIP85odEuSKoG1ZRBIoA/exec"; 
+    // --- CLOUD CONFIGURATION ---
+    // If you have a Google Apps Script URL, paste it below. 
+    // If empty, the system automatically uses LocalStorage.
+    const APP_URL = "https://script.google.com/macros/s/AKfycbzCYycHNQjEGkCiDNNlBe2tYf1UwgFZ-0Acgd2T7zh84tJUTp6toQmhoxDBQjPlG2APJQ/exec"; 
 
-    const STAGES = ["Receiving", "Pre-Thermal Grp A", "24h Thermal Cycling", "Post-Thermal Grp A", "ATP Test", "Engineering Offer"];
+    const STAGES = [
+        "Receiving", "Programming", "Pre-Vib 1 Grp A", "Vibration 1", 
+        "Post-Vib 1 Grp A", "24h Thermal", "Post-Thermal Grp A", 
+        "Vib 2", "Post-Vib 2 Grp A", "ATP Test", "Engineering Offer"
+    ];
+
     let db = {};
 
-    window.onload = () => {
+    window.onload = initialize;
+
+    function initialize() {
         if(APP_URL) {
-            document.getElementById('syncStatus').innerText = "Mode: Cloud Sync Active";
+            document.getElementById('syncStatus').innerText = "Mode: Cloud Sync";
             refreshData();
             setInterval(refreshData, 30000);
         } else {
             document.getElementById('syncStatus').innerText = "Mode: Local Storage";
-            db = JSON.parse(localStorage.getItem('anr_local_db')) || {};
+            db = JSON.parse(localStorage.getItem('office_trace_db')) || {};
             renderUI();
         }
-    };
+    }
 
     async function processUnit() {
         const batch = document.getElementById('batchInput').value.trim().toUpperCase();
         const sn = document.getElementById('snInput').value.trim().toUpperCase();
-        const gearSize = document.querySelector('input[name="size"]:checked').value;
-        const boot = document.querySelector('input[name="boot"]:checked').value;
         const stageIdx = parseInt(document.getElementById('stageSelect').value);
-        const isAdmin = document.getElementById('editMode').checked;
+        const isEdit = document.getElementById('editMode').checked;
 
-        if(!batch || !sn) return showMsg("Batch and SN Required", "error");
+        if(!batch || !sn) return showMsg("Missing Batch or Serial Number", "error");
 
-        const unitKey = batch + "_" + sn;
-        let current = db[unitKey];
-        let lastIdx = current ? STAGES.indexOf(current.stage) : -1;
+        let currentData = db[sn];
+        let lastIdx = currentData ? STAGES.indexOf(currentData.stage) : -1;
 
-        if (!isAdmin) {
-            if (lastIdx === -1 && stageIdx !== 0) return showMsg("Must start at Receiving", "error");
-            if (lastIdx !== -1 && stageIdx !== lastIdx + 1) return showMsg(`Next: ${STAGES[lastIdx+1]}`, "error");
+        if (!isEdit) {
+            if (lastIdx === -1 && stageIdx !== 0) return showMsg("New modules must start at Receiving", "error");
+            if (lastIdx !== -1 && stageIdx !== lastIdx + 1) return showMsg(`Sequence Error! Next step: ${STAGES[lastIdx+1]}`, "error");
         }
 
-        const payload = {
-            batch, sn, stage: STAGES[stageIdx],
-            history: (current && !isAdmin) ? current.history + " → " + STAGES[stageIdx] : `${gearSize}|${boot}: ${STAGES[stageIdx]}`,
-            status: stageIdx === 5 ? "Done" : "Testing",
-            time: new Date().toLocaleString()
-        };
+        let history = (currentData && !isEdit) ? currentData.history + " → " + STAGES[stageIdx] : STAGES[stageIdx];
+        if(isEdit) history += " (Admin Edit)";
 
-        db[unitKey] = payload;
-        renderUI();
+        const payload = { batch, sn, stage: STAGES[stageIdx], history, status: stageIdx === 10 ? "Done" : "Testing", action: "UPDATE" };
 
         if(APP_URL) {
-            showMsg("Syncing...", "success");
-            await fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({...payload, action: "UPDATE"}) });
-            setTimeout(refreshData, 1500);
+            showMsg("Syncing with Cloud...", "success");
+            await fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify(payload) });
+            setTimeout(refreshData, 1000);
         } else {
-            localStorage.setItem('anr_local_db', JSON.stringify(db));
+            db[sn] = { batch, sn, stage: STAGES[stageIdx], history, status: payload.status, time: new Date().toLocaleString() };
+            localStorage.setItem('office_trace_db', JSON.stringify(db));
+            showMsg("Saved Locally", "success");
+            renderUI();
         }
 
         document.getElementById('snInput').value = "";
         document.getElementById('snInput').focus();
+    }
+
+    async function deleteUnit(sn) {
+        if (!confirm(`Permanently delete Serial Number ${sn}?`)) return;
+        
+        if(APP_URL) {
+            await fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ sn: sn, action: "DELETE" }) });
+            setTimeout(refreshData, 1000);
+        } else {
+            delete db[sn];
+            localStorage.setItem('office_trace_db', JSON.stringify(db));
+            renderUI();
+        }
     }
 
     async function refreshData() {
@@ -225,96 +228,110 @@
         try {
             const res = await fetch(APP_URL);
             const cloudData = await res.json();
-            const newDb = {};
+            db = {};
             for (let i = 1; i < cloudData.length; i++) {
                 const row = cloudData[i];
-                if(!row[0] || !row[1]) continue;
-                newDb[row[0] + "_" + row[1]] = { batch: row[0], sn: row[1], stage: row[2], history: row[3], status: row[4], time: row[5] };
+                db[row[1]] = { batch: row[0], stage: row[2], history: row[3], status: row[4], time: row[5] };
             }
-            db = newDb;
             renderUI();
-        } catch (e) { console.error("Refresh Error"); }
+        } catch (e) { console.error("Cloud Refresh Failed"); }
     }
 
     function renderUI() {
-        const filter = document.getElementById('viewFilter').value;
+        const selectedBatch = document.getElementById('viewFilter').value;
         const isAdmin = document.getElementById('editMode').checked;
         const logBody = document.getElementById('logTableBody');
         const summaryBody = document.getElementById('globalSummaryTable');
-        const analytics = document.getElementById('stepAnalytics');
-        const batchData = document.getElementById('batchData');
-        const filterSelect = document.getElementById('viewFilter');
+        const batchDropdown = document.getElementById('batchDropdown');
+        const viewFilter = document.getElementById('viewFilter');
         
-        logBody.innerHTML = ""; summaryBody.innerHTML = "";
-        let bCounts = {}; let sCounts = new Array(6).fill(0); let batches = new Set();
-
         document.getElementById('adminHeader').style.display = isAdmin ? 'table-cell' : 'none';
+        logBody.innerHTML = ""; summaryBody.innerHTML = "";
+        
+        let batchCounts = {}; let stageCounts = new Array(STAGES.length).fill(0);
+        let currentBatches = new Set();
 
-        Object.keys(db).reverse().forEach(key => {
-            const u = db[key];
-            batches.add(u.batch);
-            bCounts[u.batch] = (bCounts[u.batch] || 0) + 1;
+        Object.values(db).reverse().forEach(unit => {
+            currentBatches.add(unit.batch);
+            batchCounts[unit.batch] = (batchCounts[unit.batch] || 0) + 1;
 
-            if (filter === "ALL" || u.batch === filter) {
-                const sIdx = STAGES.indexOf(u.stage);
-                if(sIdx !== -1) sCounts[sIdx]++;
+            if (selectedBatch === "ALL" || unit.batch === selectedBatch) {
+                if (selectedBatch !== "ALL") stageCounts[STAGES.indexOf(unit.stage)]++;
                 
-                // Parse history to get size/boot for display
-                const meta = u.history.split(':')[0].split('|');
-                const gSize = meta[0] || "-";
-                const bSize = meta[1] || "-";
-
-                logBody.innerHTML += `<tr>
-                    <td><b>${u.batch}</b></td>
-                    <td>${u.sn}</td>
-                    <td>${gSize}</td>
-                    <td>${bSize}</td>
-                    <td style="color:var(--blue); font-weight:700">${u.stage}</td>
-                    <td><span class="status-badge ${u.status.toLowerCase()}">${u.status}</span></td>
-                    ${isAdmin ? `<td><button class="btn-delete" onclick="deleteUnit('${u.batch}','${u.sn}')">Del</button></td>` : ''}
-                </tr>`;
+                let row = `<tr>
+                    <td><b>${unit.batch}</b></td>
+                    <td>${unit.sn}</td>
+                    <td><span style="color:var(--blue); font-weight:700;">${unit.stage}</span></td>
+                    <td><small style="color:var(--text-muted)">${unit.history}</small></td>
+                    <td><span class="status-badge ${unit.status.toLowerCase()}">${unit.status}</span></td>`;
+                
+                if (isAdmin) row += `<td><button class="btn-delete" onclick="deleteUnit('${unit.sn}')">Delete</button></td>`;
+                row += `</tr>`;
+                logBody.innerHTML += row;
             }
         });
 
-        Object.keys(bCounts).sort().forEach(b => {
-            summaryBody.innerHTML += `<tr><td>${b}</td><td>${bCounts[b]}</td><td><button onclick="focusBatch('${b}')" style="font-size:9px; padding:2px 8px; width:auto; margin:0;">View</button></td></tr>`;
+        Object.keys(batchCounts).sort().forEach(b => {
+            summaryBody.innerHTML += `<tr><td>${b}</td><td>${batchCounts[b]} Units</td><td><button onclick="focusBatch('${b}')" style="font-size:9px; padding:2px 8px; width:auto; margin:0;">View</button></td></tr>`;
         });
 
-        // Sync Dropdowns
-        const curF = filterSelect.value;
-        filterSelect.innerHTML = '<option value="ALL">All Batches</option>';
-        batchData.innerHTML = "";
-        Array.from(batches).sort().forEach(b => {
-            filterSelect.innerHTML += `<option value="${b}">${b}</option>`;
-            batchData.innerHTML += `<option value="${b}">`;
+        // Dropdown Synchronization
+        const prevFilter = viewFilter.value;
+        const prevEntry = batchDropdown.value;
+        viewFilter.innerHTML = '<option value="ALL">All Batches</option>';
+        batchDropdown.innerHTML = '<option value="">-- Select Existing Batch --</option>';
+        Array.from(currentBatches).sort().forEach(b => {
+            viewFilter.innerHTML += `<option value="${b}">${b}</option>`;
+            batchDropdown.innerHTML += `<option value="${b}">${b}</option>`;
         });
-        filterSelect.value = curF;
+        viewFilter.value = prevFilter; batchDropdown.value = prevEntry;
 
-        // Steps
-        analytics.innerHTML = filter === "ALL" ? "<p style='color:#888; font-size:10px; grid-column: 1/-1;'>Select a batch to view steps.</p>" : "";
-        if(filter !== "ALL") {
+        // Analytics Steps
+        const stepContainer = document.getElementById('stepAnalytics');
+        stepContainer.innerHTML = (selectedBatch === "ALL") ? "<p style='color:#888; font-size:11px; grid-column: 1/-1;'>Select a specific batch to view step-by-step metrics.</p>" : "";
+        if (selectedBatch !== "ALL") {
             STAGES.forEach((s, i) => {
-                analytics.innerHTML += `<div class="step-box ${sCounts[i]>0?'active':''}"><h5>Step ${i+1}</h5><p>${sCounts[i]}</p><div class="step-label">${s}</div></div>`;
+                stepContainer.innerHTML += `
+                    <div class="step-box ${stageCounts[i] > 0 ? 'active' : ''}">
+                        <h5>Step ${i+1}</h5>
+                        <p>${stageCounts[i]}</p>
+                        <div class="step-label">${s}</div>
+                    </div>`;
             });
         }
     }
 
-    async function deleteUnit(batch, sn) {
-        if(!confirm("Delete?")) return;
-        if(APP_URL) {
-            await fetch(APP_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ batch, sn, action: "DELETE" }) });
-            setTimeout(refreshData, 1000);
-        } else {
-            delete db[batch + "_" + sn];
-            localStorage.setItem('anr_local_db', JSON.stringify(db));
-            renderUI();
-        }
+    function syncBatchInput() {
+        const val = document.getElementById('batchDropdown').value;
+        if(val) document.getElementById('batchInput').value = val;
     }
 
     function focusBatch(b) { document.getElementById('viewFilter').value = b; document.getElementById('batchInput').value = b; renderUI(); }
-    function showMsg(m, t) { const f = document.getElementById('feedback'); f.innerText = m; f.style.background = t==="success"?"#dcfce7":"#fee2e2"; f.style.color = t==="success"?"#166534":"#b91c1c"; f.style.display="block"; setTimeout(()=>f.style.display="none", 3000); }
-    function filterTable() { const q = document.getElementById('searchBar').value.toUpperCase(); const rows = document.getElementById('logTableBody').getElementsByTagName('tr'); for(let r of rows) r.style.display = r.innerText.toUpperCase().includes(q)?"":"none"; }
-    function downloadCSV() { let csv = "Batch,SN,Stage,History,Status,Time\n"; Object.values(db).forEach(u => csv += `"${u.batch}","${u.sn}","${u.stage}","${u.history}","${u.status}","${u.time}"\n`); const b = new Blob([csv], { type: 'text/csv' }); const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = `Report.csv`; a.click(); }
+
+    function showMsg(text, type) {
+        const f = document.getElementById('feedback');
+        f.innerText = text;
+        f.style.background = type === "success" ? "#dcfce7" : "#fee2e2";
+        f.style.color = type === "success" ? "#166534" : "#b91c1c";
+        f.style.display = "block";
+        setTimeout(() => f.style.display = "none", 3000);
+    }
+
+    function filterTable() {
+        const val = document.getElementById('searchBar').value.toUpperCase();
+        const rows = document.getElementById('logTableBody').getElementsByTagName('tr');
+        for (let row of rows) row.style.display = row.innerText.toUpperCase().includes(val) ? "" : "none";
+    }
+
+    function downloadCSV() {
+        let csv = "Batch,Serial Number,Stage,History Trail,Status,Timestamp\n";
+        Object.values(db).forEach(u => csv += `"${u.batch}","${u.sn}","${u.stage}","${u.history}","${u.status}","${u.time || ''}"\n`);
+        const blob = new Blob([csv], { type: 'text/csv' });
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `Audit_Report_${new Date().toISOString().split('T')[0]}.csv`;
+        a.click();
+    }
 </script>
 </body>
 </html>
